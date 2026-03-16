@@ -9,10 +9,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4 # อัปเดตเป็น v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5 # อัปเดตเป็น v5
       with:
         python-version: '3.10'
 
@@ -26,7 +26,7 @@ jobs:
         pyinstaller --noconsole --onefile --name "HHT_Bridge_v1" main.py
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4 # แก้จุดที่ติด Error (v3 -> v4)
       with:
         name: HHT-Bridge-EXE
         path: dist/HHT_Bridge_v1.exe
