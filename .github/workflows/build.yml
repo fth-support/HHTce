@@ -4,29 +4,27 @@ on:
   push:
     branches: [ "main" ]
 
+env: # เพิ่มส่วนนี้เพื่อแก้ Warning เรื่อง Node.js
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     runs-on: windows-latest
-
     steps:
-    - uses: actions/checkout@v4 # อัปเดตเป็น v4
-
+    - uses: actions/checkout@v4
     - name: Set up Python
-      uses: actions/setup-python@v5 # อัปเดตเป็น v5
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
-
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-
     - name: Build EXE with PyInstaller
       run: |
         pyinstaller --noconsole --onefile --name "HHT_Bridge_v1" main.py
-
     - name: Upload Artifact
-      uses: actions/upload-artifact@v4 # แก้จุดที่ติด Error (v3 -> v4)
+      uses: actions/upload-artifact@v4
       with:
         name: HHT-Bridge-EXE
         path: dist/HHT_Bridge_v1.exe
